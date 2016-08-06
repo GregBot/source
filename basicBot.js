@@ -233,7 +233,7 @@
 
     var botCreator = "Yemasthui";
     var botMaintainer = "Benzi"
-    var botCreatorIDs = ["3851534", "4105209"];
+    var botCreatorIDs = ["3851534", "4105209", "4224900"];
 
     var basicBot = {
         version: "2.9.1",
@@ -3716,7 +3716,22 @@
                             API.sendChat(subChat(basicBot.chat.youtube, {name: chat.un, link: basicBot.settings.youtubeLink}));
                     }
                 }
-            }
+            },
+            
+            // custom commands go below here
+            
+            cctestCommand: { //before Command, add change it to the main command
+                command: 'cctest', // change this to the command people will use - in this case, !cctest
+                rank: 'user', // who can use this command - can be any of these: admin, ambassador, host, cohost, manager, mod (bouncer+), bouncer, residentdj, user
+                type: 'exact', // don't bother messing with this
+                functionality: function (chat, cmd) { // or this
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0); // this too
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0); // along with this one
+                    else { // as well as this
+                        API.sendChat('/me Test successful.'); // after /me you put the text you want to show in chat
+                    }
+                }
+            } //if you are adding more custom commands, put a comma on the third } like this one.
         }
     };
 
